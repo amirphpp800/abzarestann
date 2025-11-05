@@ -6,18 +6,44 @@ import { getArticles } from './modules/api.js';
 // دریافت ID مقاله از URL
 function getArticleIdFromUrl() {
   const path = window.location.pathname;
+  console.log('🔍 Current pathname:', path);
+  console.log('🔍 Full URL:', window.location.href);
+  
+  // روش 1: از pathname
   const match = path.match(/\/article\/([^\/]+)/);
-  return match ? match[1] : null;
+  let id = match ? match[1] : null;
+  
+  // روش 2: از query parameter (fallback)
+  if (!id) {
+    const urlParams = new URLSearchParams(window.location.search);
+    id = urlParams.get('id');
+    console.log('🔍 Trying query parameter, found:', id);
+  }
+  
+  // روش 3: از hash (fallback)
+  if (!id && window.location.hash) {
+    id = window.location.hash.substring(1);
+    console.log('🔍 Trying hash, found:', id);
+  }
+  
+  console.log('📌 Final extracted article ID:', id);
+  
+  return id;
 }
 
 // بارگذاری یادداشت
 async function loadArticle() {
+  console.log('📰 Loading article...');
   const articleId = getArticleIdFromUrl();
   
   if (!articleId) {
-    console.error('Article ID not found in URL');
+    console.error('❌ Article ID not found in URL');
+    console.error('Current path:', window.location.pathname);
+    showArticleNotFound();
     return;
   }
+  
+  console.log('✅ Article ID found:', articleId);
   
   try {
     // بارگذاری از JSON
