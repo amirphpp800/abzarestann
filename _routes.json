@@ -5,5 +5,11 @@
     "/admin",
     "/admin/*"
   ],
-  "exclude": []
+  "exclude": [
+    "/assets/*",
+    "/css/*",
+    "/js/*",
+    "/pwa/*",
+    "/data/*"
+  ]
 }

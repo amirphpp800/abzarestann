@@ -1,6 +1,6 @@
 # Cloudflare Pages Redirects
 
-# Article routes - use splat to capture ID and pass as query parameter
+# Article routes - use splat to pass ID to article page
 /article/* /pages/article.html?id=:splat 200
 
 # Clean URLs for main pages
@@ -8,9 +8,9 @@
 /blog /pages/blog.html 200
 /about /pages/about.html 200
 
-# Admin panel - try both with and without trailing slash
+# Admin panel
 /admin /admin/index.html 200
-/admin/ /admin/index.html 200
+/admin/* /admin/:splat 200
 
-# Fallback to index
+# Home page
 / /index.html 200

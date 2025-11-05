@@ -9,11 +9,12 @@ function getArticleIdFromUrl() {
   console.log('🔍 Current pathname:', path);
   console.log('🔍 Full URL:', window.location.href);
   
-  // روش 1: از pathname
+  // روش 1: از pathname (برای Cloudflare Pages routing)
+  // مثال: /article/war-12-days یا /pages/article.html
   const match = path.match(/\/article\/([^\/]+)/);
   let id = match ? match[1] : null;
   
-  // روش 2: از query parameter (fallback)
+  // روش 2: از query parameter (fallback برای روت‌های قدیمی)
   if (!id) {
     const urlParams = new URLSearchParams(window.location.search);
     id = urlParams.get('id');
@@ -22,8 +23,11 @@ function getArticleIdFromUrl() {
   
   // روش 3: از hash (fallback)
   if (!id && window.location.hash) {
-    id = window.location.hash.substring(1);
-    console.log('🔍 Trying hash, found:', id);
+    const hashId = window.location.hash.substring(1);
+    if (hashId && hashId !== '') {
+      id = hashId;
+      console.log('🔍 Trying hash, found:', id);
+    }
   }
   
   console.log('📌 Final extracted article ID:', id);
@@ -38,7 +42,9 @@ async function loadArticle() {
   
   if (!articleId) {
     console.error('❌ Article ID not found in URL');
-    console.error('Current path:', window.location.pathname);
+    console.error('📍 Current path:', window.location.pathname);
+    console.error('🔗 Full URL:', window.location.href);
+    console.error('❓ Query params:', window.location.search);
     showArticleNotFound();
     return;
   }

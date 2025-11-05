@@ -1,0 +1,31 @@
+# Service Worker Headers
+/sw.js
+  Service-Worker-Allowed: /
+  Cache-Control: public, max-age=0, must-revalidate
+
+# PWA Service Worker (backup location)
+/pwa/sw.js
+  Service-Worker-Allowed: /
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Static Assets Cache
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML Files - No Cache
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# API Routes
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Data Files
+/data/*
+  Cache-Control: public, max-age=300

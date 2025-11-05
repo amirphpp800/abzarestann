@@ -19,7 +19,7 @@ async function registerServiceWorker() {
       return;
     }
 
-    const registration = await navigator.serviceWorker.register('/pwa/sw.js', {
+    const registration = await navigator.serviceWorker.register('/sw.js', {
       scope: '/'
     });
 
