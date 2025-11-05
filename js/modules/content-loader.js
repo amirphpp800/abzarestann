@@ -5,15 +5,26 @@ import { getArticles } from './api.js';
 
 // بارگذاری یادداشت‌های پیشنهادی
 export async function loadSuggestedNotes() {
+  console.log('📝 Loading suggested notes...');
   try {
     // بارگذاری از JSON
     const response = await fetch('/data/articles.json');
+    console.log('✅ Articles JSON fetched:', response.status);
     const data = await response.json();
     const articles = data.articles || [];
+    console.log('📊 Total articles:', articles.length);
     
     const notesContainer = document.getElementById('notes');
     
-    if (!notesContainer || articles.length === 0) return;
+    if (!notesContainer) {
+      console.error('❌ Notes container not found!');
+      return;
+    }
+    
+    if (articles.length === 0) {
+      console.warn('⚠️ No articles found');
+      return;
+    }
     
     // نمایش 4 مقاله اخیر
     const recentArticles = articles.slice(0, 4);
@@ -36,15 +47,25 @@ export async function loadSuggestedNotes() {
 
 // بارگذاری مقاله ویژه
 export async function loadFeaturedArticle() {
+  console.log('⭐ Loading featured article...');
   try {
     // بارگذاری از JSON
     const response = await fetch('/data/articles.json');
     const data = await response.json();
     const articles = data.articles || [];
+    console.log('📊 Articles for featured:', articles.length);
     
     const featuredCard = document.querySelector('.featured-card');
     
-    if (!featuredCard || articles.length === 0) return;
+    if (!featuredCard) {
+      console.error('❌ Featured card not found!');
+      return;
+    }
+    
+    if (articles.length === 0) {
+      console.warn('⚠️ No articles for featured');
+      return;
+    }
     
     // اولین مقاله به عنوان ویژه
     const featured = articles[0];
