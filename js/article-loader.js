@@ -286,13 +286,19 @@ function convertToPersianNumber(num) {
 
 // نمایش خطا
 function showArticleNotFound() {
-  document.querySelector('.article-title').textContent = 'یادداشت یافت نشد';
-  document.querySelector('.article-body').innerHTML = '<p>متأسفانه یادداشت مورد نظر یافت نشد.</p>';
+  const titleEl = document.querySelector('.article-title');
+  const bodyEl = document.querySelector('.article-body');
+  
+  if (titleEl) titleEl.textContent = 'یادداشت یافت نشد';
+  if (bodyEl) bodyEl.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--muted);">متأسفانه یادداشت مورد نظر یافت نشد. <a href="/blog" style="color: var(--red);">بازگشت به لیست یادداشت‌ها</a></p>';
 }
 
 function showArticleError() {
-  document.querySelector('.article-title').textContent = 'خطا در بارگذاری';
-  document.querySelector('.article-body').innerHTML = '<p>خطا در بارگذاری یادداشت. لطفاً دوباره تلاش کنید.</p>';
+  const titleEl = document.querySelector('.article-title');
+  const bodyEl = document.querySelector('.article-body');
+  
+  if (titleEl) titleEl.textContent = 'خطا در بارگذاری';
+  if (bodyEl) bodyEl.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--muted);">خطا در بارگذاری یادداشت. لطفاً دوباره تلاش کنید.</p>';
 }
 
 // توابع اشتراک‌گذاری
