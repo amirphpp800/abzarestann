@@ -1,7 +1,7 @@
 # Cloudflare Pages Redirects
 
-# Article routes - redirect to article.html while preserving the path
-/article/:id /pages/article.html 200
+# Article routes - redirect to article.html and pass ID as query parameter
+/article/:id /pages/article.html?id=:id 200
 
 # Clean URLs for main pages
 /tools /pages/tools.html 200
