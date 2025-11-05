@@ -7,7 +7,10 @@
 /tools /pages/tools.html 200
 /blog /pages/blog.html 200
 /about /pages/about.html 200
+
+# Admin panel - try both with and without trailing slash
 /admin /admin/index.html 200
+/admin/ /admin/index.html 200
 
 # Fallback to index
 / /index.html 200
