@@ -317,6 +317,14 @@ window.copyArticleLink = function() {
 };
 
 // اجرای خودکار
-if (window.location.pathname.includes('/article/')) {
+// بررسی اینکه آیا در صفحه مقاله هستیم
+const isArticlePage = window.location.pathname.includes('/article/') || 
+                      window.location.pathname.includes('/pages/article') ||
+                      window.location.pathname.endsWith('article.html');
+
+console.log('🔍 Is article page?', isArticlePage);
+console.log('🔍 Current path:', window.location.pathname);
+
+if (isArticlePage) {
   document.addEventListener('DOMContentLoaded', loadArticle);
 }
