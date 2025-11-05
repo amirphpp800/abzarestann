@@ -164,16 +164,19 @@ function showInstallButton(isIOSDevice = false) {
     });
   }
   
-  // حذف سیستم تاخیر - نوتیفیکیشن در هر ریلود نمایش داده می‌شود
-  // localStorage.removeItem('pwa-install-dismissed-time'); // پاک کردن تاخیر قدیمی
+  // بررسی آخرین باری که نوتیفیکیشن بسته شده
+  const dismissedTime = localStorage.getItem('pwa-install-dismissed-time');
+  const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000; // 7 روز
   
-  // نمایش در تمام دستگاه‌ها (موبایل و دسکتاپ)
-  // if (!isMobile()) {
-  //   console.log('دستگاه موبایل نیست، نوتیفیکیشن نمایش داده نمی‌شود');
-  //   return;
-  // }
+  if (dismissedTime) {
+    const timeSinceDismissed = Date.now() - parseInt(dismissedTime);
+    if (timeSinceDismissed < sevenDaysInMs) {
+      console.log('نوتیفیکیشن نصب PWA قبلاً بسته شده - نمایش داده نمی‌شود');
+      return;
+    }
+  }
   
-  // نمایش با تاخیر 3 ثانیه
+  // نمایش با تاخیر 5 ثانیه
   setTimeout(() => {
     const notification = document.createElement('div');
     notification.id = 'pwa-install-notification';
@@ -213,11 +216,11 @@ function showInstallButton(isIOSDevice = false) {
       notification.classList.add('show');
     }, 100);
     
-    // بستن خودکار بعد از 20 ثانیه
+    // بستن خودکار بعد از 15 ثانیه
     setTimeout(() => {
       dismissInstallNotification();
-    }, 20000);
-  }, 3000);
+    }, 15000);
+  }, 5000);
 }
 
 // مخفی کردن نوتیفیکیشن نصب
@@ -248,8 +251,8 @@ function hideInstallButton() {
 window.dismissInstallNotification = function() {
   const notification = document.getElementById('pwa-install-notification');
   if (notification) {
-    // حذف ذخیره‌سازی تاخیر - نوتیفیکیشن در هر ریلود دوباره نمایش داده می‌شود
-    // localStorage.setItem('pwa-install-dismissed-time', Date.now().toString());
+    // ذخیره زمان بستن - نوتیفیکیشن 7 روز دیگر نمایش داده می‌شود
+    localStorage.setItem('pwa-install-dismissed-time', Date.now().toString());
     
     notification.classList.remove('show');
     setTimeout(() => notification.remove(), 300);
