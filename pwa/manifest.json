@@ -1,0 +1,62 @@
+{
+  "name": "ابـزارسـتـان - مرجع کامل ابزارها و مقالات کاربردی",
+  "short_name": "ابـزارسـتـان",
+  "description": "ابـزارسـتـان - مرجع کامل ابزارها و مقالات کاربردی برای توسعه‌دهندگان و طراحان",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#9D0913",
+  "background_color": "#020203",
+  "dir": "rtl",
+  "lang": "fa",
+  "icons": [
+    {
+      "src": "/pwa/icons/256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa/icons/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "education", "utilities"],
+  "shortcuts": [
+    {
+      "name": "مقالات",
+      "short_name": "مقالات",
+      "description": "مشاهده مقالات ویژه",
+      "url": "/#articles",
+      "icons": [
+        {
+          "src": "/pwa/icons/256.png",
+          "sizes": "256x256"
+        }
+      ]
+    },
+    {
+      "name": "ابزارها",
+      "short_name": "ابزارها",
+      "description": "استفاده از ابزارهای کاربردی",
+      "url": "/#tools",
+      "icons": [
+        {
+          "src": "/pwa/icons/256.png",
+          "sizes": "256x256"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+abzarestan",
+      "url": "/?article=%s"
+    }
+  ]
+}

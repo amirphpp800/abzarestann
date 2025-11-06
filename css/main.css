@@ -1,0 +1,126 @@
+/* Import Google Fonts for English text */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+/* Main Styles */
+:root {
+    /* Colors */
+    --primary-color: #9D0913;
+    --secondary-color: #3498db;
+    --dark-bg: #020203;
+    --darker-bg: #000000;
+    --card-bg: #101011;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-muted: #999999;
+    --border-color: #333333;
+    --hover-color: #1a1a1b;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #9D0913, #c00b17);
+    --gradient-secondary: linear-gradient(135deg, #3498db, #2980b9);
+    
+    /* Border Radius */
+    --radius-sm: 10px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.5);
+    
+    /* Font families */
+    --font-persian: 'AbarLow', 'Tahoma', sans-serif;
+    --font-english: 'Open Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+button:focus,
+a:focus {
+    outline: none;
+}
+
+body {
+    font-family: var(--font-persian);
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    direction: rtl;
+}
+
+/* English text styling */
+.english {
+    font-family: var(--font-english);
+    direction: ltr;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* Ensure Persian text uses correct font */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-persian);
+}
+
+p, span, div, a, button, input, textarea {
+    font-family: var(--font-persian);
+}
+
+/* Remove underlines from all links */
+a {
+    text-decoration: none;
+}
+
+/* Override for specific English elements */
+.english, .english * {
+    font-family: var(--font-english) !important;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Focus Styles */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+button:focus,
+a:focus {
+    outline-offset: 4px;
+}

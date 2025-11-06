@@ -1,0 +1,145 @@
+
+/* CSS for HTML Article Templates */
+
+.article-template {
+    font-family: var(--font-persian);
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    direction: rtl;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.article-template .article-meta {
+    margin-bottom: 2rem;
+}
+
+.article-template .article-meta h1 {
+    font-size: 2.5rem;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.article-template .article-image {
+    width: 100%;
+    height: 300px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.article-template .article-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.article-template .article-body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.article-template .article-body h2 {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.article-template .article-body h3 {
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+}
+
+.article-template .article-body p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.article-template .article-body ul,
+.article-template .article-body ol {
+    margin: 1rem 0 1.5rem 2rem;
+    color: var(--text-secondary);
+}
+
+.article-template .article-body li {
+    margin-bottom: 0.5rem;
+}
+
+.article-template .article-body blockquote {
+    background: var(--card-bg);
+    border-right: 4px solid var(--primary-color);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: var(--radius-md);
+    font-style: italic;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.article-template .article-body strong {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+.article-template .article-body code {
+    background: var(--card-bg);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    border: 1px solid var(--border-color);
+}
+
+.article-template .article-body pre {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .article-template {
+        padding: 1rem;
+    }
+    
+    .article-template .article-meta h1 {
+        font-size: 2rem;
+    }
+    
+    .article-template .article-image {
+        height: 200px;
+        font-size: 3rem;
+    }
+    
+    .article-template .article-body {
+        font-size: 1rem;
+    }
+    
+    .article-template .article-body h2 {
+        font-size: 1.5rem;
+    }
+    
+    .article-template .article-body h3 {
+        font-size: 1.2rem;
+    }
+}

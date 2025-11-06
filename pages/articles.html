@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>یادداشت‌ها - ابزارستان</title>
+    <meta name="description" content="یادداشت‌ها و مقالات ابزارستان">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/pwa/manifest.json">
+    <meta name="theme-color" content="#9D0913">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/Font/fontiran.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-right">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="منو">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <nav class="main-nav" id="mainNav">
+                        <a href="../index.html" class="nav-item">خانه</a>
+                        <a href="tools.html" class="nav-item">ابزارها</a>
+                        <a href="articles.html" class="nav-item">یادداشت‌ها</a>
+                        <a href="podcasts.html" class="nav-item">پادکست‌ها</a>
+                        <a href="about.html" class="nav-item">درباره</a>
+                    </nav>
+                </div>
+                <div class="header-left">
+                    <div class="logo">
+                        <a href="../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.75rem;">
+                            <span class="logo-text">ابزارستان</span>
+                            <img src="../assets/logo/logo.svg" alt="ابزارستان" class="logo-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>یادداشت‌ها</h1>
+                <p>مقالات و یادداشت‌های تخصصی درباره تکنولوژی و دنیای دیجیتال</p>
+            </div>
+
+            <div class="articles-grid" id="articles-container">
+                <!-- Articles will be loaded here -->
+                <p style="text-align: center; color: var(--text-secondary); padding: 3rem;">به زودی...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/auto-optimize.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/articles-loader.js"></script>
+    <script src="../pwa/pwa-init.js"></script>
+</body>
+</html>

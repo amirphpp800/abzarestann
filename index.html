@@ -1,226 +1,276 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="ابزارستان - مرجع کامل ابزارهای گیمینگ و کاربردی" />
-  <meta name="theme-color" content="#0a0a0f" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="ابزارستان" />
-  <title>ابزارستان | مرجع ابزارهای گیمینگ و کاربردی</title>
-  
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/pwa/manifest.json" />
-  
-  <!-- PWA Icons -->
-  <link rel="icon" type="image/png" sizes="256x256" href="/pwa/icons/256.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="/pwa/icons/512.png" />
-  <link rel="apple-touch-icon" href="/pwa/icons/256.png" />
-  <link rel="apple-touch-icon" sizes="256x256" href="/pwa/icons/256.png" />
-  <link rel="apple-touch-icon" sizes="512x512" href="/pwa/icons/512.png" />
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="assets/Font/font.css">
-  <link rel="stylesheet" href="assets/Font/font.css">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="/pwa/pwa-styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ابـزارستـان - پلتفرم ابزارهای دیجیتال</title>
+    <meta name="description" content="ابزارستان - مجموعه‌ای از بهترین ابزارها و مقالات کاربردی">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/pwa/manifest.json">
+    <meta name="theme-color" content="#9D0913">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo/logo.svg">
+    <link rel="apple-touch-icon" href="assets/logo/logo.svg">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/Font/fontiran.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="pwa/pwa-styles.css">
 </head>
 <body>
-  <a href="#main" class="skip-link">پرش به محتوای اصلی</a>
-  
-  <header class="site-header" role="banner">
-    <div class="container header-inner">
-      <div class="brand">
-        <a href="/" style="display: flex; align-items: center; gap: 12px;">
-          <img src="assets/logo/logo.svg" alt="لوگو ابزارستان" class="brand-logo" />
-          <span class="brand-name">ابزارستان</span>
-        </a>
-      </div>
-      <nav class="nav" role="navigation" aria-label="منوی اصلی">
-        <a href="/">خانه</a>
-        <a href="/tools">ابزارها</a>
-        <a href="/blog">یادداشت‌ها</a>
-        <a href="/about">درباره</a>
-        <button id="installPWAMobile" class="btn btn-red mobile-install-btn" style="display: none; gap: 0.5rem; margin-top: 0.5rem;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          نصب اپلیکیشن
-        </button>
-      </nav>
-      
-      <button class="mobile-menu-toggle" aria-label="منوی موبایل" aria-expanded="false">
-        <span></span>
-      </button>
-    </div>
-  </header>
-
-  <main id="main" class="container" role="main">
-    <section class="promo" aria-label="بنرهای اصلی">
-      <!-- کارت 1: ایران در خاموشی -->
-      <div class="promo-card promo-iran">
-        <button class="promo-arrow" aria-label="مشاهده">←</button>
-        <div class="promo-content">
-          <h3>ایران در خاموشی</h3>
-          <p>خودتان را پیش از آن که دیر شود برای قطعی یا اختلال اینترنت آماده کنید</p>
-        </div>
-        <div class="promo-icon-wrapper">
-          <img src="assets/images/head-banner.png" alt="ایران در خاموشی" class="promo-banner-image" />
-        </div>
-      </div>
-      
-      <!-- کارت 2: پادکست لایه‌هفتم -->
-      <div class="promo-card promo-podcast">
-        <button class="promo-arrow" aria-label="مشاهده">←</button>
-        <div class="promo-content">
-          <h3>پادکست لایه‌هفتم</h3>
-          <p>در مورد فیلترینگ در ایران، راه‌های دسترسی به اینترنت، نگرانی‌های امنیت دیجیتال شهروندان، حمله‌های سایبری</p>
-        </div>
-        <div class="promo-icon-wrapper">
-          <img src="assets/images/audio.png" alt="پادکست" class="promo-logo" />
-        </div>
-      </div>
-    </section>
-
-    <section class="grid">
-      <aside class="sidebar">
-        <h3 class="sidebar-title">یادداشت‌های پیشنهادی</h3>
-        <ul class="note-list" id="notes">
-          <!-- بارگذاری خودکار از data/articles.json -->
-        </ul>
-      </aside>
-
-      <section class="featured">
-        <div class="featured-card">
-          <div class="featured-media"></div>
-          <div class="featured-body">
-            <div style="text-align: center; padding: 2rem; color: var(--muted);">
-              <p>در حال بارگذاری مقاله ویژه...</p>
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-right">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="منو">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <nav class="main-nav" id="mainNav">
+                        <a href="index.html" class="nav-item">خانه</a>
+                        <a href="pages/tools.html" class="nav-item">ابزارها</a>
+                        <a href="pages/articles.html" class="nav-item">یادداشت‌ها</a>
+                        <a href="pages/podcasts.html" class="nav-item">پادکست‌ها</a>
+                        <a href="pages/about.html" class="nav-item">درباره</a>
+                    </nav>
+                </div>
+                <div class="header-left">
+                    <div class="logo">
+                        <span class="logo-text">ابـزارستـان</span>
+                        <img src="assets/logo/logo.svg" alt="ابـزارستـان" class="logo-icon">
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
-    </section>
+    </header>
 
-    <section id="tools" class="tools">
-      <div class="section-head">
-        <h3>ابزارهای گیمینگ</h3>
-        <a class="more" href="/tools">همه</a>
-      </div>
-      <div class="tool-grid">
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Top Cards -->
+                <section class="top-cards">
+                    <div class="feature-card podcast-card">
+                        <div class="card-icon">
+                            🎤
+                        </div>
+                        <div class="card-content">
+                            <h3>پادکست لایو هفتم</h3>
+                            <p>درباره‌ای قراردادی در ایران، نگاهی دقیق‌تر به اینترنت نگار طبرانیت دیجیتال هوشمندان، حمله‌های سایبری</p>
+                        </div>
+                        <button class="card-btn">←</button>
+                    </div>
+
+                    <div class="feature-card privacy-card">
+                        <div class="card-icon">
+                            🛡️
+                        </div>
+                        <div class="card-content">
+                            <h3>ایران در خاموشی</h3>
+                            <p>خبرگان را پیگیر آن که در شهر برای قطعی با اختلال اینترنت آماده کنید</p>
+                        </div>
+                        <button class="card-btn">←</button>
+                    </div>
+                </section>
+
+                <!-- Sidebar -->
+                <aside class="main-sidebar">
+                    <div class="sidebar-header">
+                        <h3>یادداشت‌های پیشنهادی</h3>
+                    </div>
+
+                    <div class="suggested-articles">
+                        <a href="/pages/article.html?id=1" class="suggested-item">
+                            <div class="suggested-thumbnail">
+                                <img src="assets/images/ai.png" alt="هوش مصنوعی">
+                            </div>
+                            <div class="suggested-content">
+                                <h4>کنترل به جای نوآوری؛ روایت توسعه نامتوازن هوش مصنوعی در ایران</h4>
+                                <span class="suggested-date">۱۴۰۳/۸/۱۸</span>
+                            </div>
+                        </a>
+
+                        <a href="/pages/article.html?id=2" class="suggested-item">
+                            <div class="suggested-thumbnail">
+                                <img src="assets/images/war.png" alt="جنگ دیجیتال">
+                            </div>
+                            <div class="suggested-content">
+                                <h4>میراث جنگ ۱۲ روزه: غلبه نگاه امنیتی بر اکوسیستم دیجیتال و شبکه اینترنت</h4>
+                                <span class="suggested-date">۱۴۰۳/۸/۱۴</span>
+                            </div>
+                        </a>
+
+                        <a href="/pages/article.html?id=3" class="suggested-item">
+                            <div class="suggested-thumbnail">
+                                <img src="assets/images/sms.png" alt="سانسور پیامک">
+                            </div>
+                            <div class="suggested-content">
+                                <h4>از اینترنت تا پیامک؛ گسترش سانسور به آخرین کانال ارتباطی</h4>
+                                <span class="suggested-date">۱۴۰۳/۸/۱۳</span>
+                            </div>
+                        </a>
+                    </div>
+                </aside>
+
+                <!-- Main Article Section -->
+                <section class="main-article-section">
+                    <div class="article-hero">
+                        <div class="article-visual">
+                            <img src="assets/images/war.png" alt="میراث جنگ" class="article-hero-image">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="read-time">📖 ۳ دقیقه</span>
+                                <button class="bookmark-btn">🔖 تحلیل</button>
+                            </div>
+                            <h1 class="main-title">میراث جنگ ۱۲ روزه: غلبه نگاه امنیتی بر اکوسیستم دیجیتال و شبکه اینترنت</h1>
+                            <p class="article-summary">بررسی تأثیرات جنگ ۱۲ روزه بر اکوسیستم دیجیتال ایران و چگونگی تبدیل نگاه امنیتی به رویکرد غالب در مدیریت فضای مجازی و شبکه اینترنت کشور.</p>
+                            <a href="/pages/article.html?id=2" target="_blank" class="read-more-btn">مطالعه</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Cyber Threats Section -->
+            <section class="cyber-threats-section">
+                <div class="cyber-header">
+                    <h3>تهدیدات سایبری</h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <div class="cyber-main-card">
+                    <img src="assets/images/cyber.png" alt="تهدیدات سایبری" class="cyber-image">
+                    <div class="cyber-content">
+                        <div class="cyber-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                            گزارش تهدیدات سایبری
+                        </div>
+                        <h4>از جنگ تا شناسایی اولین قربانیان ایرانی جاسوس‌افزار خانوادگی کاسوس در ایران</h4>
+                        <div class="cyber-meta">
+                            <span>📅 ۳۱ می ۲۰۲۴</span>
+                            <span>مطالعه بیشتر ←</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cyber-list">
+                    <div class="cyber-item">
+                        <span class="cyber-number">۱</span>
+                        <div class="cyber-item-content">
+                            <h5>گزارش تهدیدهای سایبری ایران؛ جنگ، خاموش، علیه اقلیت‌های قومی و فعالان جامعه مدنی</h5>
+                            <span class="cyber-date">۱۷ می ۲۰۲۴</span>
+                        </div>
+                    </div>
+                    <div class="cyber-item">
+                        <span class="cyber-number">۲</span>
+                        <div class="cyber-item-content">
+                            <h5>شبکه‌ای از کانال‌های تلگرامی توجیهگر خشونت جنسی و تجاوز جنسی؛ ابزاری برای سرکوب مخالفان سیاسی و مدنی</h5>
+                            <span class="cyber-date">۱۵ دسامبر ۲۰۲۳</span>
+                        </div>
+                    </div>
+                    <div class="cyber-item">
+                        <span class="cyber-number">۳</span>
+                        <div class="cyber-item-content">
+                            <h5>وصول هویت همچنان در مدار حمله‌های سایبری</h5>
+                            <span class="cyber-date">۱ اسفند ۱۴۰۲</span>
+                        </div>
+                    </div>
+                    <div class="cyber-item">
+                        <span class="cyber-number">۴</span>
+                        <div class="cyber-item-content">
+                            <h5>گزارش سالانه رایس سایبری ایران و فربایش حقوق شهروندان در دوران پس از جنبش زن، زندگی، آزادی</h5>
+                            <span class="cyber-date">۱ می ۲۰۲۴</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="cyber-more">مطالعه بیشتر ←</a>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ابـزارستـان</h4>
+                    <p>پلتفرمی برای به اشتراک‌گذاری دانش و ابزارهای کاربردی</p>
+                </div>
+                <div class="footer-section">
+                    <h4>دسترسی سریع</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="pages/tools.html">ابزارها</a></li>
+                        <li><a href="pages/articles.html">یادداشت‌ها</a></li>
+                        <li><a href="pages/podcasts.html">پادکست‌ها</a></li>
+                        <li><a href="pages/about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تماس با ما</h4>
+                    <ul class="footer-links">
+                        <li>به زودی...</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <button id="installPWAFooter" class="install-pwa-btn" onclick="installPWA()" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    نصب اپلیکیشن
+                </button>
+                <p>&copy; ۱۴۰۳ ابـزارستـان. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/auto-optimize.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script src="pwa/pwa-init.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
         
-      </div>
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mainNav.classList.toggle('active');
+            });
 
-      <div class="section-head mt-32">
-        <h3>ابزارهای کاربردی</h3>
-        <a class="more" href="/tools">همه</a>
-      </div>
-      <div class="tool-grid">
-        
-      </div>
-    </section>
+            // Close menu when clicking on a link
+            const navItems = mainNav.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    mobileMenuBtn.classList.remove('active');
+                    mainNav.classList.remove('active');
+                });
+            });
 
-    <!-- بخش آخرین یادداشت‌ها -->
-    <section class="tools">
-      <div class="section-head mt-32">
-        <h3>آخرین یادداشت‌ها</h3>
-        <a class="more" href="/blog">همه یادداشت‌ها</a>
-      </div>
-      <div class="home-articles-grid">
-        <!-- بارگذاری خودکار یادداشت‌ها -->
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-about">
-          <div class="brand">
-            <img src="assets/logo/logo.svg" alt="لوگو ابزارستان" class="brand-logo" />
-            <span class="brand-name">ابزارستان</span>
-          </div>
-          <p class="footer-description">مرجع کامل ابزارهای گیمینگ و کاربردی با قابلیت استفاده آفلاین</p>
-          <div class="footer-social">
-            <a href="#" aria-label="تلگرام" class="social-link">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-              </svg>
-            </a>
-            <a href="#" aria-label="توییتر" class="social-link">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-            <a href="#" aria-label="اینستاگرام" class="social-link">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="footer-links">
-          <h4>دسترسی سریع</h4>
-          <ul>
-            <li><a href="/">خانه</a></li>
-            <li><a href="/tools">ابزارها</a></li>
-            <li><a href="/blog">یادداشت‌ها</a></li>
-            <li><a href="/about">درباره ما</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links">
-          <h4>محتوای ویژه</h4>
-          <ul>
-            <li><a href="#">ایران در خاموشی</a></li>
-            <li><a href="#">پادکست لایه‌هفتم</a></li>
-            <li><a href="#">راهنمای VPN</a></li>
-            <li><a href="#">امنیت دیجیتال</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links">
-          <h4>پشتیبانی</h4>
-          <ul>
-            <li><a href="#">تماس با ما</a></li>
-            <li><a href="#">سوالات متداول</a></li>
-            <li><a href="#">حریم خصوصی</a></li>
-            <li><a href="#">شرایط استفاده</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-          <div>
-            <p style="margin: 0;">تمامی حقوق محفوظ است © 1404 ابزارستان</p>
-            <p class="footer-ai" style="margin: 0.25rem 0 0 0;">✨ توسعه کاملاً با هوش مصنوعی</p>
-          </div>
-          <button id="installPWAFooter" class="btn btn-red" style="display: none; gap: 0.5rem; background: linear-gradient(135deg, rgba(157, 9, 19, 0.2), rgba(157, 9, 19, 0.1)); border: 1px solid rgba(157, 9, 19, 0.4);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            نصب اپلیکیشن
-          </button>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script type="module" src="/js/home-articles.js"></script>
-  <script type="module" src="/js/main.js?v=2"></script>
-  <script src="/pwa/pwa-init.js?v=2"></script>
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mainNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                    mobileMenuBtn.classList.remove('active');
+                    mainNav.classList.remove('active');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
