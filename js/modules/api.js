@@ -1,142 +1,107 @@
-// API Client برای ارتباط با Cloudflare Functions
+// API Module
+// ماژول مدیریت API calls
 
-const API_BASE = '/api';
+const API_BASE = '';
 
-// دریافت تمام مقالات
+// Get all articles
 export async function getArticles() {
   try {
-    const response = await fetch(`${API_BASE}/articles`);
-    if (!response.ok) throw new Error('خطا در دریافت مقالات');
-    return await response.json();
+    // Try localStorage first (for admin edits)
+    const cached = localStorage.getItem('articles');
+    if (cached) {
+      const data = JSON.parse(cached);
+      return data.articles || [];
+    }
+
+    // Fallback to static JSON file
+    const response = await fetch('/data/articles.json');
+    if (!response.ok) {
+      throw new Error('Failed to fetch articles');
+    }
+    const data = await response.json();
+    return data.articles || [];
   } catch (error) {
-    console.error('Error fetching articles:', error);
+    console.error('Error loading articles:', error);
     return [];
   }
 }
 
-// دریافت یک مقاله
-export async function getArticle(id) {
-  try {
-    const response = await fetch(`${API_BASE}/articles?id=${id}`);
-    if (!response.ok) throw new Error('مقاله یافت نشد');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching article:', error);
-    return null;
-  }
-}
-
-// ایجاد مقاله جدید
+// Create article (simulate API)
 export async function createArticle(articleData) {
   try {
-    const response = await fetch(`${API_BASE}/articles`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(articleData)
-    });
-    if (!response.ok) throw new Error('خطا در ایجاد مقاله');
-    return await response.json();
+    // Get existing articles
+    const articles = await getArticles();
+
+    // Generate unique ID
+    const id = generateSlug(articleData.title);
+
+    // Create new article
+    const newArticle = {
+      id,
+      slug: id,
+      ...articleData,
+      date: new Date().toISOString(),
+      views: 0
+    };
+
+    // Add to beginning of array
+    articles.unshift(newArticle);
+
+    // Save to localStorage
+    localStorage.setItem('articles', JSON.stringify({ articles }));
+
+    return { success: true, id };
   } catch (error) {
     console.error('Error creating article:', error);
     throw error;
   }
 }
 
-// به‌روزرسانی مقاله
-export async function updateArticle(id, updates) {
-  try {
-    const response = await fetch(`${API_BASE}/articles?id=${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updates)
-    });
-    if (!response.ok) throw new Error('خطا در به‌روزرسانی مقاله');
-    return await response.json();
-  } catch (error) {
-    console.error('Error updating article:', error);
-    throw error;
-  }
-}
-
-// حذف مقاله
+// Delete article (simulate API)
 export async function deleteArticle(id) {
   try {
-    const response = await fetch(`${API_BASE}/articles?id=${id}`, {
-      method: 'DELETE'
-    });
-    if (!response.ok) throw new Error('خطا در حذف مقاله');
-    return await response.json();
+    const articles = await getArticles();
+    const filtered = articles.filter(a => a.id !== id);
+
+    localStorage.setItem('articles', JSON.stringify({ articles: filtered }));
+
+    return { success: true };
   } catch (error) {
     console.error('Error deleting article:', error);
     throw error;
   }
 }
 
-// افزایش بازدید
-export async function incrementViews(articleId) {
-  try {
-    const response = await fetch(`${API_BASE}/stats`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        articleId, 
-        action: 'increment_view' 
-      })
-    });
-    if (!response.ok) throw new Error('خطا در ثبت بازدید');
-    return await response.json();
-  } catch (error) {
-    console.error('Error incrementing views:', error);
-    return null;
+// Generate slug from Persian title
+function generateSlug(title) {
+  const persianToEnglish = {
+    'ا': 'a', 'ب': 'b', 'پ': 'p', 'ت': 't', 'ث': 's', 'ج': 'j', 'چ': 'ch',
+    'ح': 'h', 'خ': 'kh', 'د': 'd', 'ذ': 'z', 'ر': 'r', 'ز': 'z', 'ژ': 'zh',
+    'س': 's', 'ش': 'sh', 'ص': 's', 'ض': 'z', 'ط': 't', 'ظ': 'z', 'ع': 'a',
+    'غ': 'gh', 'ف': 'f', 'ق': 'gh', 'ک': 'k', 'گ': 'g', 'ل': 'l', 'م': 'm',
+    'ن': 'n', 'و': 'v', 'ه': 'h', 'ی': 'y', ' ': '-', '؛': '', '،': ''
+  };
+
+  let slug = title.toLowerCase();
+  for (let [persian, english] of Object.entries(persianToEnglish)) {
+    slug = slug.split(persian).join(english);
   }
+
+  slug = slug.replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-');
+  return slug + '-' + Date.now();
 }
 
-// دریافت آمار
-export async function getStats() {
+// Get tools
+export async function getTools() {
   try {
-    const response = await fetch(`${API_BASE}/stats?type=all`);
-    if (!response.ok) throw new Error('خطا در دریافت آمار');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching stats:', error);
-    return null;
-  }
-}
-
-// ذخیره محلی (localStorage) برای کش
-const CACHE_KEY = 'articles_cache';
-const CACHE_DURATION = 5 * 60 * 1000; // 5 دقیقه
-
-export function getCachedArticles() {
-  try {
-    const cached = localStorage.getItem(CACHE_KEY);
-    if (!cached) return null;
-
-    const { data, timestamp } = JSON.parse(cached);
-    if (Date.now() - timestamp > CACHE_DURATION) {
-      localStorage.removeItem(CACHE_KEY);
-      return null;
+    const response = await fetch('/data/tools.json');
+    if (!response.ok) {
+      throw new Error('Failed to fetch tools');
     }
-
-    return data;
+    const data = await response.json();
+    return data.tools || [];
   } catch (error) {
-    return null;
-  }
-}
-
-export function setCachedArticles(articles) {
-  try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({
-      data: articles,
-      timestamp: Date.now()
-    }));
-  } catch (error) {
-    console.error('Error caching articles:', error);
+    console.error('Error loading tools:', error);
+    return [];
   }
 }

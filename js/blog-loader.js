@@ -1,3 +1,4 @@
+
 // Blog Page Dynamic Loader
 // بارگذاری خودکار لیست یادداشت‌ها در صفحه بلاگ
 
@@ -19,7 +20,10 @@ function calculateReadingTime(content) {
 async function loadBlogArticles() {
   const articlesGrid = document.getElementById('articlesGrid');
   
-  if (!articlesGrid) return;
+  if (!articlesGrid) {
+    console.log('Articles grid not found');
+    return;
+  }
   
   try {
     // نمایش لودینگ
@@ -30,20 +34,32 @@ async function loadBlogArticles() {
       </div>
     `;
     
+    console.log('Loading articles from /data/articles.json');
+    
     // بارگذاری از JSON
     const response = await fetch('/data/articles.json');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const data = await response.json();
+    console.log('Articles data loaded:', data);
+    
     const articles = data.articles || [];
     
     // فیلتر یادداشت‌های منتشر شده و مرتب‌سازی بر اساس تاریخ
     const publishedArticles = articles
-      .filter(article => article.published)
+      .filter(article => article.published !== false)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    console.log('Published articles:', publishedArticles.length);
     
     if (publishedArticles.length === 0) {
       articlesGrid.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
-          <p style="color: var(--muted);">هنوز یادداشتی منتشر نشده است.</p>
+          <h3 style="margin-bottom: 1rem; color: var(--text);">هنوز یادداشتی منتشر نشده است</h3>
+          <p style="color: var(--muted);">به زودی یادداشت‌های جدید اضافه خواهند شد.</p>
         </div>
       `;
       return;
@@ -57,15 +73,16 @@ async function loadBlogArticles() {
             <div class="blog-card-category">${article.category || 'عمومی'}</div>
           </div>
         ` : `
-          <div class="blog-card-image" style="background: linear-gradient(135deg, rgba(157, 9, 19, 0.2), rgba(157, 9, 19, 0.05))">
-            <div class="blog-card-category">${article.category || 'عمومی'}</div>
+          <div class="blog-card-image" style="background: linear-gradient(135deg, rgba(157, 9, 19, 0.2), rgba(157, 9, 19, 0.05)); display: flex; align-items: center; justify-content: center; color: var(--red); font-size: 2rem;">
+            📝
+            <div class="blog-card-category" style="position: absolute; top: 1rem; right: 1rem;">${article.category || 'عمومی'}</div>
           </div>
         `}
         <div class="blog-card-content">
           <h3 class="blog-card-title">
             <a href="/article/${article.id}">${article.title}</a>
           </h3>
-          <p class="blog-card-excerpt">${article.excerpt || article.content.substring(0, 150)}...</p>
+          <p class="blog-card-excerpt">${article.excerpt || (article.content ? article.content.substring(0, 150) + '...' : 'خلاصه‌ای موجود نیست')}</p>
           <div class="blog-card-meta">
             <span class="meta-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -81,7 +98,14 @@ async function loadBlogArticles() {
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
-              ${calculateReadingTime(article.content)} دقیقه
+              ${calculateReadingTime(article.content || article.excerpt || '')} دقیقه
+            </span>
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              ${convertToPersianNumber(article.views || 0)} بازدید
             </span>
           </div>
           <div class="blog-card-footer">
@@ -102,24 +126,14 @@ async function loadBlogArticles() {
       </article>
     `).join('');
     
+    console.log('Articles rendered successfully');
+    
     // افزودن استایل انیمیشن
     const style = document.createElement('style');
     style.textContent = `
       @keyframes spin {
         to { transform: rotate(360deg); }
       }
-      
-      .blog-card {
-        animation: fadeInUp 0.5s ease forwards;
-        opacity: 0;
-      }
-      
-      .blog-card:nth-child(1) { animation-delay: 0.1s; }
-      .blog-card:nth-child(2) { animation-delay: 0.2s; }
-      .blog-card:nth-child(3) { animation-delay: 0.3s; }
-      .blog-card:nth-child(4) { animation-delay: 0.4s; }
-      .blog-card:nth-child(5) { animation-delay: 0.5s; }
-      .blog-card:nth-child(6) { animation-delay: 0.6s; }
       
       @keyframes fadeInUp {
         from {
@@ -131,63 +145,158 @@ async function loadBlogArticles() {
           transform: translateY(0);
         }
       }
+      
+      .blog-card {
+        animation: fadeInUp 0.5s ease forwards;
+      }
+      
+      .blog-card:nth-child(1) { animation-delay: 0.1s; }
+      .blog-card:nth-child(2) { animation-delay: 0.2s; }
+      .blog-card:nth-child(3) { animation-delay: 0.3s; }
+      .blog-card:nth-child(4) { animation-delay: 0.4s; }
+      .blog-card:nth-child(5) { animation-delay: 0.5s; }
+      .blog-card:nth-child(6) { animation-delay: 0.6s; }
     `;
-    document.head.appendChild(style);
+    
+    if (!document.getElementById('blog-animations')) {
+      style.id = 'blog-animations';
+      document.head.appendChild(style);
+    }
+    
+    // تنظیم فیلترها و جستجو
+    setupFiltersAndSearch();
     
   } catch (error) {
     console.error('Error loading articles:', error);
     articlesGrid.innerHTML = `
       <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
-        <p style="color: var(--red);">خطا در بارگذاری یادداشت‌ها. لطفاً دوباره تلاش کنید.</p>
+        <h3 style="color: var(--red); margin-bottom: 1rem;">خطا در بارگذاری یادداشت‌ها</h3>
+        <p style="color: var(--muted); margin-bottom: 1.5rem;">متاسفانه نتوانستیم یادداشت‌ها را بارگذاری کنیم.</p>
+        <button onclick="loadBlogArticles()" style="background: var(--red); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer;">
+          تلاش مجدد
+        </button>
       </div>
     `;
+  }
+}
+
+// تنظیم فیلترها و جستجو
+function setupFiltersAndSearch() {
+  // فیلتر دسته‌بندی‌ها
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // حذف کلاس active از همه تب‌ها
+      filterTabs.forEach(t => t.classList.remove('active'));
+      // اضافه کردن کلاس active به تب کلیک شده
+      tab.classList.add('active');
+      
+      const category = tab.dataset.category;
+      filterByCategory(category);
+    });
+  });
+  
+  // جستجو
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.trim();
+      searchArticles(query);
+    });
   }
 }
 
 // فیلتر یادداشت‌ها بر اساس دسته‌بندی
 function filterByCategory(category) {
   const cards = document.querySelectorAll('.blog-card');
+  let visibleCount = 0;
   
   cards.forEach(card => {
-    const cardCategory = card.querySelector('.blog-card-category').textContent;
+    const cardCategory = card.querySelector('.blog-card-category');
+    if (!cardCategory) return;
     
-    if (category === 'all' || cardCategory === category) {
+    const cardCategoryText = cardCategory.textContent.trim();
+    
+    if (category === 'all' || cardCategoryText === category) {
       card.style.display = 'block';
+      visibleCount++;
     } else {
       card.style.display = 'none';
     }
   });
+  
+  // نمایش پیام در صورت عدم وجود نتیجه
+  toggleNoResults(visibleCount === 0);
 }
 
 // جستجو در یادداشت‌ها
 function searchArticles(query) {
   const cards = document.querySelectorAll('.blog-card');
-  const searchQuery = query.toLowerCase().trim();
+  let visibleCount = 0;
   
-  if (!searchQuery) {
-    cards.forEach(card => card.style.display = 'block');
+  if (!query) {
+    cards.forEach(card => {
+      card.style.display = 'block';
+      visibleCount++;
+    });
+    toggleNoResults(false);
     return;
   }
   
+  const searchQuery = query.toLowerCase();
+  
   cards.forEach(card => {
-    const title = card.querySelector('.blog-card-title').textContent.toLowerCase();
-    const excerpt = card.querySelector('.blog-card-excerpt').textContent.toLowerCase();
+    const title = card.querySelector('.blog-card-title')?.textContent.toLowerCase() || '';
+    const excerpt = card.querySelector('.blog-card-excerpt')?.textContent.toLowerCase() || '';
     const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase()).join(' ');
     
     if (title.includes(searchQuery) || excerpt.includes(searchQuery) || tags.includes(searchQuery)) {
       card.style.display = 'block';
+      visibleCount++;
     } else {
       card.style.display = 'none';
     }
   });
+  
+  toggleNoResults(visibleCount === 0);
+}
+
+// نمایش/مخفی کردن پیام عدم وجود نتیجه
+function toggleNoResults(show) {
+  const noResults = document.getElementById('noResults');
+  const articlesGrid = document.getElementById('articlesGrid');
+  
+  if (show) {
+    if (noResults) noResults.style.display = 'block';
+    if (articlesGrid) articlesGrid.style.display = 'none';
+  } else {
+    if (noResults) noResults.style.display = 'none';
+    if (articlesGrid) articlesGrid.style.display = 'grid';
+  }
 }
 
 // اجرای خودکار
-if (window.location.pathname.includes('/blog')) {
-  document.addEventListener('DOMContentLoaded', loadBlogArticles);
+console.log('Blog loader script loaded');
+console.log('Current pathname:', window.location.pathname);
+
+// بررسی اینکه آیا در صفحه بلاگ هستیم
+const isBlogPage = window.location.pathname.includes('/blog') || 
+                   window.location.pathname.includes('/pages/blog') ||
+                   window.location.pathname.endsWith('blog.html');
+
+console.log('Is blog page?', isBlogPage);
+
+if (isBlogPage) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadBlogArticles);
+  } else {
+    loadBlogArticles();
+  }
 }
 
 // Export برای استفاده در جاهای دیگر
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { loadBlogArticles, filterByCategory, searchArticles };
+if (typeof window !== 'undefined') {
+  window.loadBlogArticles = loadBlogArticles;
+  window.filterByCategory = filterByCategory;
+  window.searchArticles = searchArticles;
 }
