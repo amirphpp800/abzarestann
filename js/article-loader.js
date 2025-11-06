@@ -9,16 +9,21 @@ function getArticleIdFromUrl() {
   console.log('🔍 Current pathname:', path);
   console.log('🔍 Full URL:', window.location.href);
   
-  // روش 1: از pathname (برای Cloudflare Pages routing)
-  // مثال: /article/war-12-days یا /pages/article.html
-  const match = path.match(/\/article\/([^\/]+)/);
-  let id = match ? match[1] : null;
+  let id = null;
   
-  // روش 2: از query parameter (fallback برای روت‌های قدیمی)
+  // روش 1: از pathname (Cloudflare Pages rewrite حفظ می‌کند URL را)
+  // مثال: /article/war-12-days
+  const match = path.match(/\/article\/([^\/\?#]+)/);
+  if (match) {
+    id = match[1];
+    console.log('🔍 Extracted from pathname:', id);
+  }
+  
+  // روش 2: از query parameter (fallback)
   if (!id) {
     const urlParams = new URLSearchParams(window.location.search);
     id = urlParams.get('id');
-    console.log('🔍 Trying query parameter, found:', id);
+    if (id) console.log('🔍 Found in query parameter:', id);
   }
   
   // روش 3: از hash (fallback)
@@ -26,7 +31,7 @@ function getArticleIdFromUrl() {
     const hashId = window.location.hash.substring(1);
     if (hashId && hashId !== '') {
       id = hashId;
-      console.log('🔍 Trying hash, found:', id);
+      console.log('🔍 Found in hash:', id);
     }
   }
   

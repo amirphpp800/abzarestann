@@ -1,6 +1,8 @@
 // Home Page Articles Loader
 // نمایش آخرین یادداشت‌ها در صفحه اصلی
 
+import { loadAllContent } from './modules/content-loader.js';
+
 // تبدیل اعداد انگلیسی به فارسی
 function convertToPersianNumber(num) {
   const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -11,7 +13,11 @@ function convertToPersianNumber(num) {
 async function loadHomeArticles() {
   const articlesContainer = document.querySelector('.home-articles-grid');
   
-  if (!articlesContainer) return;
+  if (!articlesContainer) {
+    // اگر کانتینر یادداشت‌های خانه نیست، از content-loader استفاده کن
+    await loadAllContent();
+    return;
+  }
   
   try {
     // بارگذاری از JSON
